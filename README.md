@@ -1,5 +1,5 @@
 # Top Player
-- Application: display contents related to a song along with media control 
+- Application: display contents related to a song along with media control
 - Development: follow steps in Table of Content in sequence
 
 # Table of Content
