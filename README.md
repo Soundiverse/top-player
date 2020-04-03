@@ -37,21 +37,23 @@ Run `npm run react-dev` in the command line
 ## Module's API
 ### Create a new comment
 ```sh
-POST /songs/:songid
+POST /API/comments
 ```
 #### Parameters
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `time` | `number` | The instant during the song where the comment is inserted represented in seconds |
+| `songid` | `number` | The songid of the song where the comment were created in |
+| `time` | `number` | The instant during the song where the comment is inserted, represented in seconds |
 | `comment` | `string` | The comment of the user |
-| `user` | `string` | The user that left the comment |
+| `userid` | `number` | The userid that left the comment |
 
 #### Example input
 ```sh
 {
+  "songid": "8367393",
   "time": "68",
   "comment": "some comment",
-  "user": "exampleusername"
+  "userid": "124212"
 }
 ```
 
@@ -60,23 +62,23 @@ POST /songs/:songid
 Status: 201 Created
 ```
 
-### Create a new sub comment
+### Create a new reply
 ```sh
-POST /songs/:songid/comments/:commentid
+POST /API/replies
 ```
 #### Parameters
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `time` | `number` | The instant during the song where the comment is inserted represented in seconds |
-| `comment` | `string` | The comment of the user |
-| `user` | `string` | The user that left the comment |
+| `commentid` | `number` | the id of the comment replied to |
+| `reply` | `string` | The reply of the user |
+| `userid` | `number` | The userid that left the reply |
 
 #### Example input
 ```sh
 {
-  "time": "68",
-  "comment": "some sub comment",
-  "user": "exampleusername"
+  "commentid": "438439"
+  "reply": "some reply",
+  "userid": "349023"
 }
 ```
 
@@ -85,9 +87,9 @@ POST /songs/:songid/comments/:commentid
 Status: 201 Created
 ```
 
-### Read comments
+### Read Song Details
 ```sh
-GET /songs/:songid/
+GET /API/songs/:songid/songdetails
 ```
 
 #### Response
@@ -98,37 +100,67 @@ Status: 200 OK
 {
   "songName": "Name of the Song",
   "songArtist": "Name of the Artist",
-  "ageOfSong": "5 months",
-  "tagOfSong": "#coolTag",
-  "imageOfSong": "http://amazons3.coolSong.jpg",
-  "urlOfSong": "http://amazons3.coolSong.mp3",
+  "songPlaylist": "Name of the Playlist",
+  "age": "17",
+  "tag": "#coolTag",
+  "songCover": "http://amazons3.coolSong.songCover.jpg",
+  "soundWaveImage": "http://amazons3.coolSong.soundWaveImage.jpg"
+  "songFile": "http://amazons3.coolSong.songFile.mp3",
   "comments":
-  {
-    "comments": ["comment1", "comment2", "comment3"],
-    "commentids" ["1", "2", "3"],
-    "users": ["user1", "user1", "user5"],
-    "time": ["7", "121", "300"]
-  }
+  [
+    {
+      "commentid": "1323",
+      "comment": "some comment",
+      "userid": "495738",
+      "username": "some user",
+      "useravatar": "http://amazons3.somecoolavatar.jpg",
+      "time": "89",
+      "replies":
+      [
+        {
+          "replyid": "976038",
+          "reply": "some cool reply",
+          "userid": "495738",
+          "username": "some user"
+        },
+        {
+          "replyid": "463847",
+          "reply": "some other cool reply",
+          "userid": "937433",
+          "username": "some other user"
+        }
+      ]
+    },
+    {
+      "commentid": "34385",
+      "comment": "some toher comment",
+      "userid": "439047",
+      "username": "some other user",
+      "useravatar": "http://amazons3.somecoolavatar.jpg",
+      "time": "137",
+      "replies": []
+    }
+  ]
 }
 ```
 
 ### Update a comment
 ```sh
-PUT /songs/:songid/comments/:commentid
+PUT /comments/:commentid
 ```
 #### Parameters
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | `time` | `number` | The instant during the song where the comment is inserted represented in seconds |
 | `comment` | `string` | The comment of the user |
-| `user` | `string` | The user that left the comment |
+| `userid` | `number` | The userid that left the comment |
 
 #### Example input
 ```sh
 {
   "time": "68",
   "comment": "some comment",
-  "user": "exampleusername"
+  "userid": "83438439"
 }
 ```
 
@@ -139,7 +171,7 @@ Status: 200 OK
 
 ### Delete a comment
 ```sh
-DELETE /songs/:songid/comments/:commentid
+DELETE /comments/:commentid
 ```
 
 #### Response
