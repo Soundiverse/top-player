@@ -1,24 +1,27 @@
-const { Pool, Client } = require('pg')
+const { Pool, Client } = require('pg');
+
 const pool = new Pool({
-  // user: 'me',
-  // host: 'database.server.com',
-  // database: 'test',
-  // password: 'password',
-  // port: 5432,
-})
+  database: 'topplayerservice'
+});
 pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, JSON.parse(JSON.stringify(res)))
-  pool.end()
-})
+  if (err) {
+    console.log('there has been an error:', err);
+  } else {
+    console.log('success result:', JSON.parse(JSON.stringify(res.rows)));
+  }
+  pool.end();
+});
+
 const client = new Client({
-  // user: 'me',
-  // host: 'database.server.com',
-  // database: 'phuctran',
-  // password: 'password',
-  // port: 5432,
-})
-client.connect()
-client.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  client.end()
-})
+  database: 'topplayerservice'
+});
+client.connect();
+
+client.query('SELECT * FROM tags', (err, res) => {
+  if (err) {
+    console.log('there has been an error:', err);
+  } else {
+    console.log('success result:', JSON.parse(JSON.stringify(res.rows)));
+  }
+  client.end();
+});
