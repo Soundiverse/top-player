@@ -1,3 +1,10 @@
+DROP KEYSPACE IF EXISTS topplayerservice;
+
+CREATE KEYSPACE IF NOT EXISTS topplayerservice
+  WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 3};
+
+USE topplayerservice;
+
 CREATE TABLE songs (
   songid int,
   songname varchar,
@@ -19,8 +26,8 @@ CREATE TABLE songs (
   replyid int,
   reply varchar,
   timereplycreatedat int,
-  PRIMARY KEY (songid, songname)
-);
+  PRIMARY KEY (userid, timesongcreatedat)
+) WITH CLUSTERING ORDER BY (timesongcreatedat DESC);
 
 CREATE TABLE users (
   userid int,
@@ -34,7 +41,7 @@ CREATE TABLE users (
   follower int,
   following int,
   personallink varchar,
-  PRIMARY KEY (userid, location)
+  PRIMARY KEY (location)
 );
 
 CREATE TABLE comments (
@@ -49,8 +56,8 @@ CREATE TABLE comments (
   timecommentcreatedat int,
   replyid int,
   reply varchar,
-  PRIMARY KEY (commentid, songid)
-);
+  PRIMARY KEY (songid, timecommentcreatedat)
+) WITH CLUSTERING ORDER BY (timecommentcreatedat DESC);
 
 CREATE TABLE tags (
   tag varchar,
@@ -58,5 +65,9 @@ CREATE TABLE tags (
   songname varchar,
   playlistid int,
   playlistname varchar,
-  PRIMARY KEY (tag, playlistid)
+  PRIMARY KEY (playlistid)
 );
+
+COPY tags (tag, songid, songname, playlistid, playlistname) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/tagstable.csv';
+
+COPY songs (songid,songname,userid,username,useravatar,playlistid,playlistname,length,timesongcreatedat,tag,songcover,soundwaveimage,songfile,commentid,comment,timeonsong,timecommentcreatedat,replyid,reply,timereplycreatedat) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/songstable.csv';
