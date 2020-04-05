@@ -1,11 +1,13 @@
+/* eslint-disable comma-dangle */
 const faker = require('faker');
 const fs = require('fs');
 
+
+const usersTableDataWriteStream = fs.createWriteStream('userstable.csv');
+
 const numberOfPrimaryRecords = 100000;
 
-const tagsTableDataWriteStream = fs.createWriteStream('tagstable.csv');
-
-console.log(`Creating ${numberOfPrimaryRecords} records of tags`);
+console.log(`Creating ${numberOfPrimaryRecords} records of users`);
 
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
@@ -18,12 +20,18 @@ function writeAlot(writer, encoding, callback) {
       }
       i -= 1;
       j += 1;
-      const tag = (faker.random.words(3)).replace(',', '') + faker.random.number(100000);
+      const userId = j;
+      const userName = faker.random.word('string').replace(',', '');
+      const userAvatar = faker.image.avatar();
       const songId = faker.random.number(1000000);
       const songName = faker.random.word('string').replace(',', '');
       const playListId = faker.random.number(1000000);
       const playListName = faker.random.word('string').replace(',', '');
-      const data = `${tag},${songId},${songName},${playListId},${playListName}\n`;
+      const location = faker.random.word('string').replace(',', '');
+      const followers = faker.random.number(1000000);
+      const following = faker.random.number(1000000);
+      const personalLink = faker.internet.url();
+      const data = `${userId},${userName},${userAvatar},${songId},${songName},${playListId},${playListName},${location},${followers},${following},${personalLink}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
@@ -41,4 +49,4 @@ function writeAlot(writer, encoding, callback) {
   write();
 }
 
-writeAlot(tagsTableDataWriteStream, 'utf8', () => { tagsTableDataWriteStream.end(); });
+writeAlot(usersTableDataWriteStream, 'utf8', () => { usersTableDataWriteStream.end(); });
