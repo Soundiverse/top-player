@@ -1,11 +1,13 @@
+/* eslint-disable comma-dangle */
 const faker = require('faker');
 const fs = require('fs');
 
+
+const repliesTableDataWriteStream = fs.createWriteStream('repliestable.csv');
+
 const numberOfPrimaryRecords = 100000;
 
-const playListsTableDataWriteStream = fs.createWriteStream('playliststable.csv');
-
-console.log(`Creating ${numberOfPrimaryRecords} records of playlists`);
+console.log(`Creating ${numberOfPrimaryRecords} records of replies`);
 
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
@@ -18,10 +20,11 @@ function writeAlot(writer, encoding, callback) {
       }
       i -= 1;
       j += 1;
-      const playListId = j;
-      const playListName = ((faker.random.word('string').replace(',', ' '))).replace(',', '');
-
-      const data = `${playListId},${playListName}\n`;
+      const replyId = j;
+      const reply = ((faker.random.words(3)).replace(',', '')).replace(',', '');
+      const userId = faker.random.number(1000000);
+      const timeCreatedAt = faker.date.past(20);
+      const data = `${replyId},${reply},${userId},${timeCreatedAt}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
@@ -39,4 +42,4 @@ function writeAlot(writer, encoding, callback) {
   write();
 }
 
-writeAlot(playListsTableDataWriteStream, 'utf8', () => { playListsTableDataWriteStream.end(); });
+writeAlot(repliesTableDataWriteStream, 'utf8', () => { repliesTableDataWriteStream.end(); });
