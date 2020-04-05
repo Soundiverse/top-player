@@ -1,11 +1,13 @@
+/* eslint-disable comma-dangle */
 const faker = require('faker');
 const fs = require('fs');
 
+
+const commentsTableDataWriteStream = fs.createWriteStream('commentstable.csv');
+
 const numberOfPrimaryRecords = 100000;
 
-const tagsTableDataWriteStream = fs.createWriteStream('tagstable.csv');
-
-console.log(`Creating ${numberOfPrimaryRecords} records of tags`);
+console.log(`Creating ${numberOfPrimaryRecords} records of comments`);
 
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
@@ -18,10 +20,14 @@ function writeAlot(writer, encoding, callback) {
       }
       i -= 1;
       j += 1;
-      const tag = ((faker.random.words(3)).replace(',', '')).replace(',', '') + faker.random.number(100000);
-      const playListId = faker.random.number(100000);
+      const commentId = j;
+      const comment = ((faker.random.words(3)).replace(',', '')).replace(',', '');
+      const userId = faker.random.number(1000000);
       const songId = faker.random.number(1000000);
-      const data = `${tag},${playListId},${songId}\n`;
+      const timeOnSong = faker.random.number(300);
+      const timeCreatedAt = faker.date.past(20);
+      const replyId = faker.random.number(1000000);
+      const data = `${commentId},${comment},${userId},${songId},${timeOnSong},${timeCreatedAt},${replyId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
@@ -39,4 +45,4 @@ function writeAlot(writer, encoding, callback) {
   write();
 }
 
-writeAlot(tagsTableDataWriteStream, 'utf8', () => { tagsTableDataWriteStream.end(); });
+writeAlot(commentsTableDataWriteStream, 'utf8', () => { commentsTableDataWriteStream.end(); });
