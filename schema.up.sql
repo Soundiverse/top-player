@@ -3,8 +3,8 @@ CREATE TABLE songs (
   songname VARCHAR(100),
   userid INT,
   playlistid INT,
-  length SMALLINT,
-  timecreatedat INT,
+  length INT,
+  timecreatedat VARCHAR(50),
   tag VARCHAR(100),
   songcover VARCHAR(100),
   soundwaveimage VARCHAR(100),
@@ -25,10 +25,10 @@ CREATE TABLE tags (
 
 CREATE TABLE users (
   userid SERIAL PRIMARY KEY,
-  username VARCHAR(50),
+  username VARCHAR(150),
   useravatar VARCHAR(100),
   playlistid  INT,
-  location VARCHAR(50),
+  location VARCHAR(150),
   followers INT,
   following INT,
   personallink  VARCHAR(100)
@@ -40,7 +40,7 @@ CREATE TABLE comments (
   userid INT,
   songid  INT,
   timeonsong SMALLINT,
-  timecreatedat INT,
+  timecreatedat VARCHAR(50),
   replyid INT
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE replies (
   replyid SERIAL PRIMARY KEY,
   reply VARCHAR(250),
   userid  INT,
-  timecreatedat INT
+  timecreatedat VARCHAR(50)
 );
 
 -- ALTER TABLE songs ADD CONSTRAINT fk1 FOREIGN KEY (userid) REFERENCES users(userid);
@@ -74,3 +74,9 @@ copy playlists from '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-s
 copy songs from '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/postgresql/data/songstable.csv' (delimiter ',');
 
 copy tags from '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/postgresql/data/tagstable.csv' (delimiter ',');
+
+copy users from '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/postgresql/data/userstable.csv' (delimiter ',');
+
+copy comments from '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/postgresql/data/commentstable.csv' (delimiter ',');
+
+copy replies from '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/postgresql/data/repliestable.csv' (delimiter ',');
