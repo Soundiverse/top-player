@@ -2,13 +2,18 @@
 const faker = require('faker');
 const fs = require('fs');
 
+const songUrl = 'https://soundiverse.s3-us-west-1.amazonaws.com/';
+const imageUrl = 'https://soundiverse.s3-us-west-1.amazonaws.com/';
 
 const songsTableDataWriteStream = fs.createWriteStream('songstable.csv');
 
 const numberOfPrimaryRecords = 100000;
 
+console.log(`Creating ${numberOfPrimaryRecords} records of songs`);
+
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
+  let j = 0;
   function write() {
     let ok = true;
     do {
@@ -16,26 +21,27 @@ function writeAlot(writer, encoding, callback) {
         console.log('currently at:', i);
       }
       i -= 1;
-      const songId = i;
+      j += 1;
+      const songId = j;
       const songName = faker.random.word('string').replace(',', '');
-      const userId = faker.random.number(1000);
+      const userId = faker.random.number(1000000);
       const userName = faker.random.word('string').replace(',', '');
-      const userAvatar = faker.random.word('string').replace(',', '');
-      const playListId = faker.random.number(1000);
+      const userAvatar = faker.image.avatar();
+      const playListId = faker.random.number(1000000);
       const playListName = faker.random.word('string').replace(',', '');
       const length = faker.random.number(300);
-      const timeSongCreatedAt = faker.random.number(10000);
+      const timeSongCreatedAt = faker.date.past(20);
       const tag = faker.random.word('string').replace(',', '');
-      const songCover = faker.random.word('string').replace(',', '');
+      const songCover = `${imageUrl}${faker.random.number(9)}.jpeg`;
       const soundwaveImage = faker.random.word('string').replace(',', '');
-      const songFile = faker.random.word('string').replace(',', '');
-      const commentId = faker.random.number(1000);
+      const songFile = `${songUrl}${faker.random.number(6)}.mp3`;
+      const commentId = faker.random.number(1000000);
       const comment = (faker.random.words(3)).replace(',', '').replace(',', '');
       const timeOnSong = faker.random.number(300);
-      const timeCommentCreatedAt = faker.random.number(10000);
-      const replyId = faker.random.number(1000);
+      const timeCommentCreatedAt = faker.date.past(20);
+      const replyId = faker.random.number(1000000);
       const reply = (faker.random.words(3)).replace(',', '').replace(',', '');
-      const timeReplyCreatedAt = faker.random.number(10000);
+      const timeReplyCreatedAt = faker.date.past(20);
       const data = `${songId},${songName},${userId},${userName},${userAvatar},${playListId},${playListName},${length},${timeSongCreatedAt},${tag},${songCover},${soundwaveImage},${songFile},${commentId},${comment},${timeOnSong},${timeCommentCreatedAt},${replyId},${reply},${timeReplyCreatedAt}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
