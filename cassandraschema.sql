@@ -14,7 +14,7 @@ CREATE TABLE songs (
   playlistid int,
   playlistname varchar,
   length int,
-  timesongcreatedat int,
+  timesongcreatedat varchar,
   tag varchar,
   songcover varchar,
   soundwaveimage varchar,
@@ -22,10 +22,10 @@ CREATE TABLE songs (
   commentid int,
   comment varchar,
   timeonsong int,
-  timecommentcreatedat int,
+  timecommentcreatedat varchar,
   replyid int,
   reply varchar,
-  timereplycreatedat int,
+  timereplycreatedat varchar,
   PRIMARY KEY (userid, timesongcreatedat)
 ) WITH CLUSTERING ORDER BY (timesongcreatedat DESC);
 
@@ -38,7 +38,7 @@ CREATE TABLE users (
   playlistid int,
   playlistname varchar,
   location varchar,
-  follower int,
+  followers int,
   following int,
   personallink varchar,
   PRIMARY KEY (location)
@@ -53,7 +53,7 @@ CREATE TABLE comments (
   songid int,
   songname varchar,
   timeonsong int,
-  timecommentcreatedat int,
+  timecommentcreatedat varchar,
   replyid int,
   reply varchar,
   PRIMARY KEY (songid, timecommentcreatedat)
@@ -71,3 +71,7 @@ CREATE TABLE tags (
 COPY tags (tag, songid, songname, playlistid, playlistname) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/tagstable.csv';
 
 COPY songs (songid,songname,userid,username,useravatar,playlistid,playlistname,length,timesongcreatedat,tag,songcover,soundwaveimage,songfile,commentid,comment,timeonsong,timecommentcreatedat,replyid,reply,timereplycreatedat) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/songstable.csv';
+
+COPY users (userId,userName,userAvatar,songId,songName,playListId,playListName,location,followers,following,personalLink) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/userstable.csv';
+
+COPY comments (commentId,comment,userId,userName,userAvatar,songId,songName,timeOnSong,timeCommentCreatedAt,replyId,reply) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/commentstable.csv';
