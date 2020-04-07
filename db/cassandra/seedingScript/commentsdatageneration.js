@@ -5,13 +5,19 @@ const fs = require('fs');
 
 const commentsTableDataWriteStream = fs.createWriteStream('commentstable.csv');
 
-const numberOfPrimaryRecords = 100000;
+const numberOfPrimaryRecords = 1000000;
+const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of comments`);
 
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
   let j = 0;
+  let userId = faker.random.number(numberOfPrimaryRecords) + 1;
+  let userName = faker.random.word('string').replace(',', '');
+  let userAvatar = faker.image.avatar();
+  let songId = faker.random.number(numberOfPrimaryRecords) + 1;
+  let songName = faker.random.word('string').replace(',', '');
   function write() {
     let ok = true;
     do {
@@ -22,16 +28,16 @@ function writeAlot(writer, encoding, callback) {
       j += 1;
       const commentId = j;
       const comment = ((faker.random.words(3)).replace(',', '')).replace(',', '');
-      const userId = faker.random.number(1000000);
-      const userName = faker.random.word('string').replace(',', '');
-      const userAvatar = faker.image.avatar();
-      const songId = faker.random.number(1000000);
-      const songName = faker.random.word('string').replace(',', '');
+      if (Math.ceil(Math.random() * faker.random.number(maxNumberOfSecondaryRecords)) === 1) {
+        userId = faker.random.number(numberOfPrimaryRecords) + 1;
+        userName = faker.random.word('string').replace(',', '');
+        userAvatar = faker.image.avatar();
+        songId = faker.random.number(numberOfPrimaryRecords) + 1;
+        songName = faker.random.word('string').replace(',', '');
+      }
       const timeOnSong = faker.random.number(300);
       const timeCommentCreatedAt = faker.date.past(20);
-      const replyId = faker.random.number(1000000);
-      const reply = (faker.random.words(3)).replace(',', '').replace(',', '');
-      const data = `${commentId},${comment},${userId},${userName},${userAvatar},${songId},${songName},${timeOnSong},${timeCommentCreatedAt},${replyId},${reply}\n`;
+      const data = `${commentId},${comment},${userId},${userName},${userAvatar},${songId},${songName},${timeOnSong},${timeCommentCreatedAt}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {

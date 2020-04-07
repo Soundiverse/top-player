@@ -5,13 +5,14 @@ const fs = require('fs');
 
 const usersTableDataWriteStream = fs.createWriteStream('userstable.csv');
 
-const numberOfPrimaryRecords = 100000;
+const numberOfPrimaryRecords = 1000000;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of users`);
 
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
   let j = 0;
+
   function write() {
     let ok = true;
     do {
@@ -23,15 +24,11 @@ function writeAlot(writer, encoding, callback) {
       const userId = j;
       const userName = faker.random.word('string').replace(',', '');
       const userAvatar = faker.image.avatar();
-      const songId = faker.random.number(1000000);
-      const songName = faker.random.word('string').replace(',', '');
-      const playListId = faker.random.number(1000000);
-      const playListName = faker.random.word('string').replace(',', '');
       const location = faker.random.word('string').replace(',', '');
-      const followers = faker.random.number(1000000);
-      const following = faker.random.number(1000000);
+      const followers = faker.random.number(numberOfPrimaryRecords);
+      const following = faker.random.number(numberOfPrimaryRecords);
       const personalLink = faker.internet.url();
-      const data = `${userId},${userName},${userAvatar},${songId},${songName},${playListId},${playListName},${location},${followers},${following},${personalLink}\n`;
+      const data = `${userId},${userName},${userAvatar},${location},${followers},${following},${personalLink}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
