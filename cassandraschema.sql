@@ -14,7 +14,6 @@ CREATE TABLE songs (
   timesongcreatedat varchar,
   tag varchar,
   songcover varchar,
-  soundwaveimage varchar,
   songfile varchar,
   PRIMARY KEY (songid, userid)
 );
@@ -43,7 +42,7 @@ CREATE TABLE comments (
   PRIMARY KEY (songid, songname, timeonsong, commentid)
 );
 
-COPY songs (songid,songname,userid,username,useravatar,timesongcreatedat,tag,songcover,soundwaveimage,songfile) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/songstable.csv';
+COPY songs (songid,songname,userid,username,useravatar,timesongcreatedat,tag,songcover,songfile) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/songstable.csv';
 
 COPY users (userid,username,useravatar,location,followers,following,personallink) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/userstable.csv';
 

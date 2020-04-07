@@ -36,7 +36,6 @@ function writeAlot(writer, encoding, callback) {
       const timeSongCreatedAt = faker.date.past(20);
       const tag = faker.random.word('string').replace(',', '');
       const songCover = `${imageUrl}${faker.random.number(9)}.jpeg`;
-      const soundwaveImage = faker.random.word('string').replace(',', '');
       const songFile = `${songUrl}${faker.random.number(6)}.mp3`;
       const data = `${songId},${songName},${userId},${userName},${userAvatar},${timeSongCreatedAt},${tag},${songCover},${soundwaveImage},${songFile}\n`;
       if (i === 0) {
