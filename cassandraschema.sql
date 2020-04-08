@@ -7,21 +7,21 @@ USE topplayerservice;
 
 CREATE TABLE songs (
   songid int,
-  songname varchar,
+  songtitle varchar,
   userid int,
   username varchar,
-  useravatar varchar,
-  timesongcreatedat varchar,
+  avatar varchar,
+  postdate varchar,
   tag varchar,
-  songcover varchar,
-  songfile varchar,
+  albumcover varchar,
+  mediafile varchar,
   PRIMARY KEY (songid, userid)
 );
 
 CREATE TABLE users (
   userid int,
   username varchar,
-  useravatar varchar,
+  avatar varchar,
   location varchar,
   followers int,
   following int,
@@ -34,16 +34,16 @@ CREATE TABLE comments (
   comment varchar,
   userid int,
   username varchar,
-  useravatar varchar,
+  avatar varchar,
   songid int,
-  songname varchar,
+  songtitle varchar,
   timeonsong int,
   timecommentcreatedat varchar,
-  PRIMARY KEY (songid, songname, timeonsong, commentid)
+  PRIMARY KEY (songid, songtitle, timeonsong, commentid)
 );
 
-COPY songs (songid,songname,userid,username,useravatar,timesongcreatedat,tag,songcover,songfile) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/songstable.csv';
+COPY songs (songid,songtitle,userid,username,avatar,postdate,tag,albumcover,mediafile) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/songstable.csv';
 
-COPY users (userid,username,useravatar,location,followers,following,personallink) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/userstable.csv';
+COPY users (userid,username,avatar,location,followers,following,personallink) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/userstable.csv';
 
-COPY comments (commentid,comment,userid,userName,useravatar,songid,songname,timeonsong,timecommentcreatedat) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/commentstable.csv';
+COPY comments (commentid,comment,userid,username,avatar,songid,songtitle,timeonsong,timecommentcreatedat) FROM '/Users/phuctran/Documents/bootcamp/Soundiverse/top-player-service/db/cassandra/data/commentstable.csv';
