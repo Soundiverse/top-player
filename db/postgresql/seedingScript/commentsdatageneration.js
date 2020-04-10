@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const commentsTableDataWriteStream = fs.createWriteStream('commentstable.csv');
 
-const numberOfPrimaryRecords = 1000000;
+const numberOfPrimaryRecords = 10000000;
 const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of comments`);
@@ -13,21 +13,30 @@ console.log(`Creating ${numberOfPrimaryRecords} records of comments`);
 function writeAlot(writer, encoding, callback) {
   let i = numberOfPrimaryRecords;
   let j = 0;
-  let songId = faker.random.number(numberOfPrimaryRecords) + 1;
-  let userId = faker.random.number(numberOfPrimaryRecords) + 1;
+  let songId = faker.random.number(numberOfPrimaryRecords);
+  if (songId === 0) {
+    songId += 1;
+  }
   function write() {
     let ok = true;
     do {
       if (i % (numberOfPrimaryRecords / 10) === 0) {
         console.log('currently at:', i);
+        console.log('hiiii, songid is:', songId);
       }
       i -= 1;
       j += 1;
       const commentId = j;
       const comment = ((faker.random.words(3)).replace(',', '')).replace(',', '');
+      let userId = faker.random.number(numberOfPrimaryRecords);
+      if (userId === 0) {
+        userId += 1;
+      }
       if (Math.ceil(Math.random() * faker.random.number(maxNumberOfSecondaryRecords)) === 1) {
-        userId = faker.random.number(numberOfPrimaryRecords) + 1;
-        songId = faker.random.number(numberOfPrimaryRecords) + 1;
+        songId = faker.random.number(numberOfPrimaryRecords);
+        if (songId === 0) {
+          songId += 1;
+        }
       }
       const timeOnSong = faker.random.number(300);
       const timeCommentCreatedAt = faker.date.past(20);
