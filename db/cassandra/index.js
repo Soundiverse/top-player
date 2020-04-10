@@ -10,7 +10,7 @@ client.connect();
 
 const cassandraDb = {};
 cassandraDb.getDataForOneSong = (songId, cb) => {
-  // const songId = Math.ceil(Math.random() * 10000) + 1;
+  songId = Math.ceil(Math.random() * 1000000) + 1;
   const songQuery = 'select * from songs where songid = ?;';
   const queryParam = [songId];
   const commentsQuery = 'select * from comments where songid = ?;';
@@ -57,10 +57,9 @@ cassandraDb.insertComment = (request, cb) => {
   //   songId: Math.ceil(Math.random() * 10000000) + 100000000,
   //   songTitle: 'hello',
   //   timeOnSong: 200,
-  //   timeCommentCreatedAt: new Date()
   // }
   const commentId = Math.ceil(Math.random() * 100000000) + 100000000; // should change commentId (and other ids in other tables) to uuid
-  const timeCommentCreatedAt = `${(new Date()).getFullYear()}-${(new Date()).getMonth() + 1}-${(new Date()).getDate()}`;
+  const timeCommentCreatedAt = new Date();
   
   const queryParam = [commentId, request.comment, request.userId, request.userName, request.avatar, request.songId, request.songTitle, request.timeOnSong, timeCommentCreatedAt];
   
