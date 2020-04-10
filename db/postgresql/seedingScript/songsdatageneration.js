@@ -7,7 +7,7 @@ const imageUrl = 'https://soundiverse.s3-us-west-1.amazonaws.com/';
 
 const songsTableDataWriteStream = fs.createWriteStream('songstable.csv');
 
-const numberOfPrimaryRecords = 1000000;
+const numberOfPrimaryRecords = 10000000;
 const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of songs`);
@@ -25,17 +25,15 @@ function writeAlot(writer, encoding, callback) {
       i -= 1;
       j += 1;
       const songId = j;
-      const songName = faker.random.word('string').replace(',', '');
+      const songTitle = faker.random.word('string').replace(',', '');
       if (Math.ceil(Math.random() * faker.random.number(maxNumberOfSecondaryRecords)) === 1) {
         userId = faker.random.number(numberOfPrimaryRecords) + 1;
       }
-      const timeSongCreatedAt = faker.date.past(20);
-      const songCover = `${imageUrl}${faker.random.number(9)}.jpeg`;
-      const soundwaveImage = faker.random.word('string').replace(',', '');
-      const songFile = `${songUrl}${faker.random.number(6)}.mp3`;
-      const playlist = faker.random.word('string').replace(',', '');
+      const postDate = faker.date.past(20);
+      const albumCover = `${imageUrl}${faker.random.number(8) + 1}.jpeg`;
+      const mediaFile = `${songUrl}${faker.random.number(5) + 1}.mp3`;
       const tag = faker.random.word('string').replace(',', '');
-      const data = `${songId},${songName},${userId},${timeSongCreatedAt},${songCover},${soundwaveImage},${songFile},${playlist},${tag}\n`;
+      const data = `${songId},${songTitle},${userId},${postDate},${albumCover},${mediaFile},${tag}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {

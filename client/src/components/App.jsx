@@ -15,7 +15,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      song: [],
+      song: undefined,
       waveformData: undefined,
     };
     this.getSongData = this.getSongData.bind(this);
@@ -26,18 +26,21 @@ class App extends React.Component {
   }
 
   getSongData() {
-    $.get('/songData')
-      .done((data) => {
+    $.ajax({
+      type: 'get',
+      url: '/getDataForOneSong',
+      data: { songId: Math.ceil(Math.random() * 10000000) + 1 },
+      success: (data) => {
         this.setState({ song: data });
-      })
-      .fail(() => {
-        // eslint-disable-next-line no-console
+      },
+      error: () => {
         console.log('error with get request');
-      });
+      }
+    });
   }
 
   render() {
-    const songData = this.state.song[0];
+    const songData = this.state.song;
 
     if (songData) {
       return (

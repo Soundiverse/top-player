@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const usersTableDataWriteStream = fs.createWriteStream('userstable.csv');
 
-const numberOfPrimaryRecords = 1000000;
+const numberOfPrimaryRecords = 10000000;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of users`);
 
@@ -22,12 +22,12 @@ function writeAlot(writer, encoding, callback) {
       j += 1;
       const userId = j;
       const userName = faker.random.word('string').replace(',', '');
-      const userAvatar = faker.image.avatar();
+      const avatar = faker.image.avatar();
       const location = faker.random.word('string').replace(',', '');
       const followers = faker.random.number(numberOfPrimaryRecords);
       const following = faker.random.number(numberOfPrimaryRecords);
       const personalLink = faker.internet.url();
-      const data = `${userId},${userName},${userAvatar},${location},${followers},${following},${personalLink}\n`;
+      const data = `${userId},${userName},${avatar},${location},${followers},${following},${personalLink}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {

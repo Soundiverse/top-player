@@ -7,7 +7,7 @@ const imageUrl = 'https://soundiverse.s3-us-west-1.amazonaws.com/';
 
 const songsTableDataWriteStream = fs.createWriteStream('songstable.csv');
 
-const numberOfPrimaryRecords = 1000000;
+const numberOfPrimaryRecords = 10000000;
 const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of songs`);
@@ -18,7 +18,7 @@ function writeAlot(writer, encoding, callback) {
   let ok = true;
   let userId = faker.random.number(numberOfPrimaryRecords) + 1;
   let userName = faker.random.word('string').replace(',', '');
-  let userAvatar = faker.image.avatar();
+  let avatar = faker.image.avatar();
   function write() {
     do {
       if (i % (numberOfPrimaryRecords / 10) === 0) {
@@ -27,18 +27,17 @@ function writeAlot(writer, encoding, callback) {
       i -= 1;
       j += 1;
       const songId = j;
-      const songName = faker.random.word('string').replace(',', '');
+      const songTitle = faker.random.word('string').replace(',', '');
       if (Math.ceil(Math.random() * faker.random.number(maxNumberOfSecondaryRecords)) === 1) {
         userId = faker.random.number(numberOfPrimaryRecords) + 1;
         userName = faker.random.word('string').replace(',', '');
-        userAvatar = faker.image.avatar();
+        avatar = faker.image.avatar();
       }
-      const timeSongCreatedAt = faker.date.past(20);
+      const postDate = faker.date.past(20);
       const tag = faker.random.word('string').replace(',', '');
-      const songCover = `${imageUrl}${faker.random.number(9)}.jpeg`;
-      const soundwaveImage = faker.random.word('string').replace(',', '');
-      const songFile = `${songUrl}${faker.random.number(6)}.mp3`;
-      const data = `${songId},${songName},${userId},${userName},${userAvatar},${timeSongCreatedAt},${tag},${songCover},${soundwaveImage},${songFile}\n`;
+      const albumcover = `${imageUrl}${faker.random.number(8) + 1}.jpeg`;
+      const mediaFile = `${songUrl}${faker.random.number(5) + 1}.mp3`;
+      const data = `${songId},${songTitle},${userId},${userName},${avatar},${postDate},${tag},${albumcover},${mediaFile}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
