@@ -10,7 +10,7 @@ const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of comments`);
 
-function writeAlot(writer, encoding, callback) {
+function writeAlot(writer, callback) {
   let i = numberOfPrimaryRecords;
   let j = 0;
   let songId = faker.random.number(numberOfPrimaryRecords) + 1;
@@ -24,7 +24,7 @@ function writeAlot(writer, encoding, callback) {
       }
       i -= 1;
       j += 1;
-      const commentId = j;
+      const commentId = faker.random.uuid();
       const comment = ((faker.random.words(3)).replace(',', '')).replace(',', '');
       const userId = faker.random.number(numberOfPrimaryRecords) + 1;
       const userName = faker.random.word('string').replace(',', '');
@@ -37,11 +37,11 @@ function writeAlot(writer, encoding, callback) {
       const timeCommentCreatedAt = faker.date.past(20);
       const data = `${commentId},${comment},${userId},${userName},${avatar},${songId},${songTitle},${timeOnSong},${timeCommentCreatedAt}\n`;
       if (i === 0) {
-        writer.write(data, encoding, callback);
+        writer.write(data, callback);
       } else {
         // see if we should continue, or wait
         // don't pass the callback, because we're not done yet.
-        ok = writer.write(data, encoding);
+        ok = writer.write(data);
       }
     } while (i > 0 && ok);
     if (i > 0) {
@@ -53,4 +53,4 @@ function writeAlot(writer, encoding, callback) {
   write();
 }
 
-writeAlot(commentsTableDataWriteStream, 'utf8', () => { commentsTableDataWriteStream.end(); });
+writeAlot(commentsTableDataWriteStream, () => { commentsTableDataWriteStream.end(); });
