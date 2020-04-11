@@ -1,16 +1,16 @@
-echo "Creating csv files for postgresql database"
-node --max-old-space-size=8192 db/postgresql/seedingScript/songsdatageneration.js
-node --max-old-space-size=8192 db/postgresql/seedingScript/usersdatageneration.js
-node --max-old-space-size=8192 db/postgresql/seedingScript/commentsdatageneration.js
+# echo "Creating csv files for postgresql database"
+# node --max-old-space-size=8192 db/postgresql/seedingScript/songsdatageneration.js
+# node --max-old-space-size=8192 db/postgresql/seedingScript/usersdatageneration.js
+# node --max-old-space-size=8192 db/postgresql/seedingScript/commentsdatageneration.js
 
-echo "Moving csv files to data folder"
-mv songstable.csv ./db/postgresql/data/
-mv userstable.csv ./db/postgresql/data/
-mv commentstable.csv ./db/postgresql/data/
+# echo "Moving csv files to data folder"
+# mv songstable.csv ./db/postgresql/data/
+# mv userstable.csv ./db/postgresql/data/
+# mv commentstable.csv ./db/postgresql/data/
 
-echo "Seeding csv files to postgresql database"
-psql < schema.down.sql
-psql -d topplayerservice < schema.up.sql
+# echo "Seeding csv files to postgresql database"
+# psql < schema.down.sql
+# psql -d topplayerservice < schema.up.sql
 
 echo "Creating csv files for cassandra database"
 node --max-old-space-size=8192 db/cassandra/seedingScript/songsdatageneration.js
