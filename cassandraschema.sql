@@ -30,7 +30,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE comments (
-  commentid int,
+  commentid uuid,
   comment varchar,
   userid int,
   username varchar,
