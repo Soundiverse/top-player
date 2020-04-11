@@ -26,10 +26,14 @@ class App extends React.Component {
   }
 
   getSongData() {
+    let songId = Math.ceil(Math.random() * 10000000);
+    if (songId === 0) {
+      songId += 1;
+    }
     $.ajax({
       type: 'get',
       url: '/getDataForOneSong',
-      data: { songId: Math.ceil(Math.random() * 10000000) + 1 },
+      data: { songId },
       success: (data) => {
         this.setState({ song: data });
       },
