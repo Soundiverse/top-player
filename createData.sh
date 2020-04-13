@@ -12,6 +12,9 @@
 # psql < ./db/postgresql/schema.down.sql
 # psql -d topplayerservice < ./db/postgresql/schema.up.sql
 
+echo "Making data directorate"
+mkdir -p db/cassandra/data
+
 echo "Setting up cassandra schema"
 cqlsh < ./db/cassandra/cassandraschema.sql
 
