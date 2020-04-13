@@ -5,7 +5,7 @@ const path = require('path');
 
 const cassandraDb = require('../db/cassandra/index.js').cassandraDb;
 
-const port = 3001;
+const port = 80;
 const app = express();
 
 app.use(bodyParser.json());
