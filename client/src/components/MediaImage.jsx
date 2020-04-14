@@ -15,24 +15,28 @@ class MediaImage extends React.Component {
   render() {
     const comments = this.props.comments.map((comment, i) => {
       return (
-        <div className="TP-comment" key={i}>
-          {/* <div className="TP-commentText" >
-            <div>{comment.username}</div>
-            <div>{comment.comment}</div>
-          </div> */}
-          <img className="TP-avatar" src={comment.avatar} alt="" />
+        <div className="TP-comment" style={{left: comment.timeonsong * 560 / 300}} key={i}>
+          <div></div>
+          <img className="TP-avatar" src={comment.avatar} alt="" ></img>
+          <div className="TP-commentText" >
+            <div className="TP-userName">{comment.username}</div>
+            <div className="TP-commentLine">{comment.comment}</div>
+          </div>
         </div>
       );
     });
 
     return (
       <div className="TP-mediaImage">
-        <canvas id="canvas" className="TP-canvas" width="1000" height="200"></canvas>
         <div className="TP-currentTime">{`${this.props.currentTime}`}</div>
         <div className="TP-duration">{`${this.props.duration}`}</div>
+        <div className="timeLine">
+        <canvas id="canvas" className="TP-canvas" width="1000" height="200"></canvas>
         <div className="TP-commentBlock">
           {comments}
         </div>
+        </div>
+        
         {/* <input
           id="TP-timeline"
           className="canvas"
