@@ -20,6 +20,7 @@
   text-align: right;
   font-size: 12px;
   padding: 1px;
+  z-index: 1;
 }
 
 .TP-duration {
@@ -33,6 +34,7 @@
   text-align: right;
   font-size: 12px;
   padding: 1px;
+  z-index: 1;
 }
 
 .TP-waveform {
