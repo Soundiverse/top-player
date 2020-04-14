@@ -19,8 +19,7 @@ class MediaImage extends React.Component {
           <div></div>
           <img className="TP-avatar" src={comment.avatar} alt="" ></img>
           <div className="TP-commentText" >
-            <div className="TP-userName">{comment.username}</div>
-            <div className="TP-commentLine">{comment.comment}</div>
+            <div><span className="TP-userName">{comment.username}: </span><span className="TP-commentLine">{comment.comment}</span></div>
           </div>
         </div>
       );

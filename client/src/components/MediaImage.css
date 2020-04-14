@@ -74,6 +74,7 @@
   display: inline;
   margin: 0 auto;
   cursor: pointer;
+  width: auto;
 }
 
 .TP-avatar {
@@ -86,11 +87,16 @@
   opacity: 0;
 }
 
-.TP-userName {
-  color: #f50;
-}
-
 .TP-commentText:hover {
   opacity: 100;
-  z-index: 1;
+}
+
+.TP-userName {
+  color: #f50;
+  font-size: 10px;
+}
+
+.TP-commentLine {
+  color: white;
+  font-size: 10px;
 }
