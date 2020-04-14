@@ -1,7 +1,7 @@
 {
   "name": "top-player",
   "version": "1.0.0",
-  "description": "project audib.ly top player",
+  "description": "project audib.ly - soundiverse top player",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,13 +9,14 @@
     "server-dev": "nodemon server/index.js",
     "lint": "eslint ./",
     "seed-data": "bash createData.sh",
-    "stress-test": "k6 run stressTest.js"
+    "stress-test": "k6 run stressTest.js",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/project-audibly/top-player.git"
   },
-  "author": "Harrison Edwards",
+  "author": "Harrison Edwards & Phuc Tran",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/project-audibly/top-player/issues"
