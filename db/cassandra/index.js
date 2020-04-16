@@ -2,12 +2,16 @@ const cassandra = require('cassandra-driver');
 const faker = require('faker');
 
 const client = new cassandra.Client({
-  contactPoints: ['localhost'],
-  localDataCenter: 'datacenter1',
+  contactPoints: ['172.31.33.254'],
+  localDataCenter: 'us-east-2',
   keyspace: 'topplayerservice'
 });
 
-client.connect();
+client.connect((error) => {
+  if (error) {
+    console.log(error);
+  }
+});
 
 const cassandraDb = {};
 cassandraDb.getDataForOneSong = (songId, cb) => {
