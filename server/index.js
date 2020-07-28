@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const cassandraDb = require('../db/cassandra/index.js').cassandraDb;
 
-const port = 80;
+const port = process.env.USER === 'phuctran' ? 3000 : process.env.PORT || '0.0.0.0';
 const app = express();
 
 app.use(bodyParser.json());
