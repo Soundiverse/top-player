@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
   getSongData() {
-    let songId = Math.ceil(Math.random() * 10000000);
+    let songId = Math.ceil(Math.random() * 1000000); 
     if (songId === 0) {
       songId += 1;
     }

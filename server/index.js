@@ -1,7 +1,8 @@
-require('newrelic');
+// require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+require('dotenv').config();
 
 const cassandraDb = require('../db/cassandra/index.js').cassandraDb;
 

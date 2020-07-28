@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const commentsTableDataWriteStream = fs.createWriteStream('commentstable.csv');
 
-const numberOfPrimaryRecords = 10000000;
+const numberOfPrimaryRecords = 1000000;
 const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of comments`);

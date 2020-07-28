@@ -4,3 +4,4 @@ songstable.csv
 userstable.csv
 newrelic.js
 newrelic_agent.log
+.env

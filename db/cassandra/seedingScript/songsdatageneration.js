@@ -7,7 +7,7 @@ const imageUrl = 'https://soundiverse.s3-us-west-1.amazonaws.com/';
 
 const songsTableDataWriteStream = fs.createWriteStream('songstable.csv');
 
-const numberOfPrimaryRecords = 10000000;
+const numberOfPrimaryRecords = 1000000;
 const maxNumberOfSecondaryRecords = 100;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of songs`);

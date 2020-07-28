@@ -2,8 +2,8 @@ const cassandra = require('cassandra-driver');
 const faker = require('faker');
 
 const client = new cassandra.Client({
-  contactPoints: ['172.31.33.254'],
-  localDataCenter: 'us-east-2',
+  contactPoints: [process.env.DATABASE_URL],
+  localDataCenter: process.env.LOCAL_DATA_CENTER,
   keyspace: 'topplayerservice'
 });
 
@@ -15,7 +15,7 @@ client.connect((error) => {
 
 const cassandraDb = {};
 cassandraDb.getDataForOneSong = (songId, cb) => {
-  songId = Math.ceil(Math.random() * 10000000);
+  songId = Math.ceil(Math.random() * 1000000);
   if (songId === 0) {
     songId += 1;
   }
@@ -67,7 +67,7 @@ cassandraDb.insertComment = (request, cb) => {
     userId: 10000,
     userName: faker.random.word('string'),
     avatar: faker.random.word('string'),
-    songId: Math.ceil(Math.random() * 10000000) + 100000000,
+    songId: Math.ceil(Math.random() * 1000000) + 10000000,
     songTitle: faker.random.word('string'),
     timeOnSong: 200,
   };

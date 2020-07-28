@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const usersTableDataWriteStream = fs.createWriteStream('userstable.csv');
 
-const numberOfPrimaryRecords = 10000000;
+const numberOfPrimaryRecords = 1000000;
 
 console.log(`Creating ${numberOfPrimaryRecords} records of users`);
 
